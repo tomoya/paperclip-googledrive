@@ -99,10 +99,13 @@ module Paperclip
           assert_required_keys
           # Initialize the client & Google+ API
           client = Google::APIClient.new(application_name: 'ppc-gd', application_version: PaperclipGoogleDrive::VERSION)
-          client.authorization.client_id = @google_drive_credentials[:client_id]
-          client.authorization.client_secret = @google_drive_credentials[:client_secret]
-          client.authorization.access_token = @google_drive_credentials[:access_token]
-          client.authorization.refresh_token = @google_drive_credentials[:refresh_token]
+          auth = client.authorization
+          auth.client_id = @google_drive_credentials[:client_id]
+          auth.client_secret = @google_drive_credentials[:client_secret]
+          auth.refresh_token = @google_drive_credentials[:refresh_token]
+          auth.scope = 'https://docs.google.com/feeds/' \
+                       'https://www.googleapis.com/auth/drive '
+          auth.refresh!
           client
         end
       end
