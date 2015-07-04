@@ -236,7 +236,7 @@ module Paperclip
       end
       # check either all ccredentials keys is set
       def assert_required_keys
-        keys_list = [:client_id, :client_secret, :access_token, :refresh_token]
+        keys_list = [:client_id, :client_secret, :refresh_token]
         keys_list.each do |key|
           @google_drive_credentials.fetch(key)
         end
